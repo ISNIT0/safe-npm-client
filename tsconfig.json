@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "baseUrl": "src",
+        "moduleResolution": "node",
+        "outDir": "./www/",
+        "module": "es6",
+        "target": "es5",
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "noImplicitReturns": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "paths": {
+            "src/*": [
+                "./src/*"
+            ],
+        },
+    }
+}
