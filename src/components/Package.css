@@ -1,0 +1,12 @@
+.pull-left{
+    align-self: flex-start;
+}
+
+.pull-right{
+    align-self: flex-end;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}

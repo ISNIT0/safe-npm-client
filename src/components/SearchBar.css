@@ -1,0 +1,30 @@
+.home{
+    width:60vw;
+    font-size:300%;
+    text-align:center;
+    border:none;
+    border-bottom:2px solid grey;
+}
+
+.header{
+    font-size: 16px;
+    width: 170px;
+    border: none;
+    margin:0.5rem;
+    background-color: purple;
+    color:white
+}
+
+.header::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+    font-size: 16px
+}
+
+.header:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+}
+
+.header::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+}

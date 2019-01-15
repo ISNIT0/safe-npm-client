@@ -1,6 +1,7 @@
 const allConfig = {
     development: {
-        apiRoot: 'http://localhost:12180'
+        apiRoot: 'https://safenpm.herokuapp.com'
+        // apiRoot: 'http://localhost:12180'
     },
     production: {
         apiRoot: 'https://safenpm.herokuapp.com'
