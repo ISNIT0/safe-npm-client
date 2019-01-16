@@ -6,7 +6,7 @@ import SearchBar from './SearchBar'
 
 const Package404 = view(() => {
     return <>
-        <Header title='Safe NPM' grade='null'></Header>
+        <Header title='Safe NPM' grade={null}></Header>
         <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
             <h1>Sorry that package does not exist!</h1>
             <h2>Search for a package here</h2>
