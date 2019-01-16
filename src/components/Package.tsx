@@ -79,7 +79,6 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
                     <h1>Loading...</h1>
                     {state.packageNotFound == true &&
                         <>
-                        {console.log('Yo')}
                         <Redirect to='/packageFailed/404'></Redirect>
                         </>
                     }
