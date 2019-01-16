@@ -4,8 +4,8 @@ import Badge from './Badge';
 import ReactMarkdown from 'react-markdown';
 
 interface VersionCardProps {
-    version:any,
-    grade:any,
+    version:string,
+    grade:string,
     alignment?:string
     detail?:any
 }

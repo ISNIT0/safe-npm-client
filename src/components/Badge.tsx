@@ -2,9 +2,9 @@ import React from 'react';
 import { view, store } from 'react-easy-state';
 
 interface BadgeProps {
-    grade:any,
-    height?:any,
-    width?:any,
+    grade:string,
+    height?:string,
+    width?:string,
 }
 
 interface BadgeState {

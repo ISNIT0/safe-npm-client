@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Redirect, Link } from "react-router-dom"
 interface HeaderProps {
     title:any,
     package?:boolean,
-    version?:any,
+    version?:string,
     grade?:any,
 }
 

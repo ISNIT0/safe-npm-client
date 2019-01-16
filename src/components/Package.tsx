@@ -19,7 +19,7 @@ interface PackageState {
     packageData?: any
     versionsData?: any
     versionsCardData?: any
-    pageURL?:any
+    pageURL?: string
     packageNotFound?:boolean
 }
 
