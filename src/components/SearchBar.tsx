@@ -1,6 +1,6 @@
 import React from 'react'
 import { view , store } from 'react-easy-state';
-import { BrowserRouter as Router, Redirect, Link } from "react-router-dom"
+import { Redirect} from "react-router-dom"
 import './Searchbar.css';
 
 interface SearchProps {
@@ -16,14 +16,14 @@ interface SearchState {
 const state = store<SearchState>({})
 
 class SearchBar extends React.Component<SearchProps>{
-    checkSubmit = (e:any) => {
-        if(e && e.keyCode == 13) {
+    checkSubmit = (ev:any) => {
+        if(ev && ev.keyCode == 13) {
             state.redirect = true;
         }
     }
 
-    onChange = (e:any) => {
-        state.searchValue = e.target.value
+    onChange = (ev:any) => {
+        state.searchValue = ev.target.value
         console.log(state.searchValue)
     }
     render(){
