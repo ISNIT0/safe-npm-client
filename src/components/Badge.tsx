@@ -102,7 +102,7 @@ class Badge extends React.Component<BadgeProps>{
                 </svg>    
             )
         }
-        else if(this.props.grade == 'null'){
+        else if(this.props.grade == null){
             return(
                 <></>    
             )

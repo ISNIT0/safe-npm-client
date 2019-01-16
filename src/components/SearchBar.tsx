@@ -36,7 +36,13 @@ class SearchBar extends React.Component<SearchProps>{
                         {state.searchValue = ''}
                     </>
                 }
-                <input className={this.props.type} value={state.searchValue} onChange={this.onChange} onKeyPress={()=>this.checkSubmit(event)} placeholder={this.props.placeholder}></input>
+                <input 
+                    className={this.props.type} 
+                    value={state.searchValue} 
+                    onChange={this.onChange} 
+                    onKeyPress={()=>this.checkSubmit(event)} 
+                    placeholder={this.props.placeholder}
+                />
             </>
         )
     }

@@ -6,7 +6,7 @@ import SearchBar from './SearchBar'
 
 const Home = view(() => {
     return <>
-        <Header title='Safe NPM' grade='null'></Header>
+        <Header title='Safe NPM' grade={null}></Header>
         <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
             <h1>Welcome!</h1>
             <h2>Search for a package here</h2>
