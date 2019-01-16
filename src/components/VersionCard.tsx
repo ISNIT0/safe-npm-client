@@ -22,7 +22,6 @@ class VersionCard extends React.Component<VersionCardProps>{
         }
     }
     wouldTruncate = (text:any,maxWords:number) =>{
-        console.log(text)
         var words = text.split(' ')
         return(words.length>maxWords ? true:false)
     }
@@ -51,7 +50,9 @@ class VersionCard extends React.Component<VersionCardProps>{
                                     </div>
                                     <div style={{height:'1px',width:'100%',background:'grey',marginTop:'5px',marginBottom:'5px'}}/>
                                     <div style={{textAlign:(this.props.alignment == 'left' ? 'right':'left'),fontWeight:'bold'}}>This package was reviewed by "{this.props.detail[0].by}"</div>  
-                                    <ReactMarkdown source={this.props.detail[0].comments}/>
+                                    {this.props.detail[0].comments != undefined &&
+                                        <ReactMarkdown source={this.props.detail[0].comments}/>
+                                    }
                                     {
                                         //<ReactMarkdown source={this.truncate(this.props.detail[0].comments.toString(),wordLimit)}/>
                                     }

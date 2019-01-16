@@ -6,6 +6,7 @@ import { getJSON } from '../http';
 import Header from './Header';
 import VersionCard from './VersionCard';
 import './Package.css';
+import PopUp from './popUp'
 
 interface ReactRouterProps {
     match: {
@@ -79,7 +80,7 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
                     {state.packageNotFound == true &&
                         <>
                         {console.log('Yo')}
-                        <Redirect to='/packagenotfound/'></Redirect>
+                        <Redirect to='/packageFailed/404'></Redirect>
                         </>
                     }
                 </>
@@ -87,7 +88,7 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
         } else {
             return <div>
                 {state.packageNotFound == true &&
-                    <Redirect to='/packagenotfound/'></Redirect>
+                    <Redirect to='/packageFailed/404'></Redirect>
                 }
                 {state.versionsCardData != undefined &&
                     <Header title={state.packageName} package={true} version={state.versionsCardData[0].version} grade={state.versionsCardData[0].grade}></Header>
@@ -105,7 +106,7 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
                         }
                     </div>
                     <Link to="/about/" style={{position:'fixed',right:'50vw',bottom:'10px',textAlign:'center'}}>About</Link>
-                </div>  
+                </div>
             </div>
         }
     }

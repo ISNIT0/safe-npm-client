@@ -14,7 +14,7 @@ const AppRouter = view(() => (
             <Route path="/" exact component={Home} />
             <Route path="/package/:packageName" component={Package} />
             <Route path="/about/" component={About} />
-            <Route path="/packagenotfound/" component={Package404} />
+            <Route path="/packageFailed/404" component={Package404} />
         </div>
     </Router>
 ))
