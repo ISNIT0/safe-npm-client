@@ -20,7 +20,7 @@ interface PackageState {
     versionsData?: any
     versionsCardData?: any
     pageURL?: string
-    packageNotFound?:boolean
+    packageNotFound?: boolean
 }
 
 const state = store<PackageState>({})
@@ -30,16 +30,15 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
     async componentDidMount() {
         (window as any).state = state
         state.packageNotFound = false
-        this.updatePackage()    
+        this.updatePackage()
     }
 
-    async updatePackage(){
-        console.log('starting change')
+    async updatePackage() {
         const { packageName } = this.props.match.params
 
         state.packageName = packageName;
 
-        try{
+        try {
             const packageData = await getJSON<any[]>(`${config.apiRoot}/status/${packageName}.json`)
 
             const versionsData = (await Promise.all(
@@ -62,24 +61,22 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
             );
         }
         catch{
-            console.log('We failed')
             state.packageNotFound = true
-            console.log(state.packageNotFound)
         }
     }
 
     render() {
-        if(state.pageURL != window.location.href){
+        if (state.pageURL != window.location.href) {
             state.pageURL = window.location.href;
             this.updatePackage()
         }
         if (!state.versionsData) {
-            return(
-                <> 
+            return (
+                <>
                     <h1>Loading...</h1>
                     {state.packageNotFound == true &&
                         <>
-                        <Redirect to='/packageFailed/404'></Redirect>
+                            <Redirect to='/packageFailed/404'></Redirect>
                         </>
                     }
                 </>
@@ -92,11 +89,11 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
                 {state.versionsCardData != undefined &&
                     <Header title={state.packageName} package={true} version={state.versionsCardData[0].version} grade={state.versionsCardData[0].grade}></Header>
                 }
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',height:'82vh',overflowY:'scroll'}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', width: '90%',paddingTop:'10px'}}>
+                <div className='body'>
+                    <div className='cardContainer'>
                         {state.versionsCardData != undefined &&
                             state.versionsCardData.map((entity: any, index: number) =>
-                                <div className={(index % 2 == 0 ? 'pull-left' : 'pull-right')} style={{width:'40vw'}}>
+                                <div className={(index % 2 == 0 ? 'pull-left' : 'pull-right')} style={{ width: '40vw' }}>
                                     <div className={(index % 2 == 0 ? 'pull-right' : 'pull-left')}>
                                         <VersionCard version={entity.version} grade={entity.grade} detail={entity.detail} alignment={(index % 2 == 0 ? 'left' : 'right')}></VersionCard>
                                     </div>
@@ -104,7 +101,7 @@ const Package = view(class Package extends React.Component<ReactRouterProps> {
                             )
                         }
                     </div>
-                    <Link to="/about/" style={{position:'fixed',right:'50vw',bottom:'10px',textAlign:'center'}}>About</Link>
+                    <Link to="/about/" className='floatBottom'>About</Link>
                 </div>
             </div>
         }
