@@ -4,26 +4,17 @@ import { view } from "react-easy-state"
 import { Home } from "./components/Home"
 import { Package } from "./components/Package"
 import { About } from "./components/About"
+import { Package404 } from "./components/Package404"
 
 import './App.less'
 
 const AppRouter = view(() => (
     <Router>
         <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/about/">About</Link>
-                    </li>
-                </ul>
-            </nav>
-
             <Route path="/" exact component={Home} />
             <Route path="/package/:packageName" component={Package} />
             <Route path="/about/" component={About} />
+            <Route path="/packageFailed/404" component={Package404} />
         </div>
     </Router>
 ))

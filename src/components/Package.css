@@ -1,0 +1,34 @@
+.pull-left{
+    align-self: flex-start;
+}
+
+.pull-right{
+    align-self: flex-end;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:82vh;
+    overflow-y:scroll
+}
+
+.cardContainer{
+    display: flex;
+    flex-direction: column; 
+    width: 90%;
+    padding-top: 10px
+}
+
+.floatBottom{
+    position: fixed;
+    right: 50vw;
+    bottom: 10px;
+    text-align: center
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}

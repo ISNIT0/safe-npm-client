@@ -1,7 +1,12 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom"
 import { view, store } from 'react-easy-state';
 import { config } from '../config';
 import { getJSON } from '../http';
+import Header from './Header';
+import VersionCard from './VersionCard';
+import './Package.css';
+import PopUp from './popUp'
 
 interface ReactRouterProps {
     match: {
@@ -13,42 +18,97 @@ interface PackageState {
     packageName?: string
     packageData?: any
     versionsData?: any
+    versionsCardData?: any
+    pageURL?: string
+    packageNotFound?: boolean
 }
 
+const state = store<PackageState>({})
+
 const Package = view(class Package extends React.Component<ReactRouterProps> {
-    state = store<PackageState>({})
 
     async componentDidMount() {
+        (window as any).state = state
+        state.packageNotFound = false
+        this.updatePackage()
+    }
+
+    async updatePackage() {
         const { packageName } = this.props.match.params
-        this.state.packageName = packageName;
 
-        const packageData = await getJSON<any[]>(`${config.apiRoot}/status/${packageName}.json`);
-        this.state.packageData = packageData;
+        state.packageName = packageName;
 
-        const versionsData = (await Promise.all(
-            packageData.map(({ version }) => getJSON<any[]>(`${config.apiRoot}/status/${packageName}/${version}.json`))
-        ))
-            .reduce(flatten, [])
-            .sort((a, b) => a.date < b.date ? 1 : -1);
-        this.state.versionsData = versionsData;
+        try {
+            const packageData = await getJSON<any[]>(`${config.apiRoot}/status/${packageName}.json`)
+
+            const versionsData = (await Promise.all(
+                packageData.map(({ version }) => getJSON<any[]>(`${config.apiRoot}/status/${packageName}/${version}.json`))
+            ))
+                .reduce(flatten, [])
+                .sort((a, b) => a.date < b.date ? 1 : -1);
+            state.versionsData = versionsData;
+
+            state.versionsCardData = await Promise.all(
+                packageData.map((element) => {
+                    return getJSON<any[]>(`${config.apiRoot}/status/${packageName}/${element.version}.json`)
+                        .then((result) => {
+                            return {
+                                ...element,
+                                detail: result
+                            }
+                        });
+                })
+            );
+        }
+        catch{
+            state.packageNotFound = true
+        }
     }
 
     render() {
-        if (!this.state.versionsData) {
-            return <h1>Loading...</h1>
+        if (state.pageURL != window.location.href) {
+            state.pageURL = window.location.href;
+            this.updatePackage()
+        }
+        if (!state.versionsData) {
+            return (
+                <>
+                    <h1>Loading...</h1>
+                    {state.packageNotFound == true &&
+                        <>
+                            <Redirect to='/packageFailed/404'></Redirect>
+                        </>
+                    }
+                </>
+            )
         } else {
             return <div>
-                <h1>Package {this.state.packageName}!</h1>
-                <pre>{JSON.stringify(this.state.packageData, null, '\t')}</pre>
-                <pre>{JSON.stringify(this.state.versionsData, null, '\t')}</pre>
+                {state.packageNotFound == true &&
+                    <Redirect to='/packageFailed/404'></Redirect>
+                }
+                {state.versionsCardData != undefined &&
+                    <Header title={state.packageName} package={true} version={state.versionsCardData[0].version} grade={state.versionsCardData[0].grade}></Header>
+                }
+                <div className='body'>
+                    <div className='cardContainer'>
+                        {state.versionsCardData != undefined &&
+                            state.versionsCardData.map((entity: any, index: number) =>
+                                <div className={(index % 2 == 0 ? 'pull-left' : 'pull-right')} style={{ width: '40vw' }}>
+                                    <div className={(index % 2 == 0 ? 'pull-right' : 'pull-left')}>
+                                        <VersionCard version={entity.version} grade={entity.grade} detail={entity.detail} alignment={(index % 2 == 0 ? 'left' : 'right')}></VersionCard>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                    <Link to="/about/" className='floatBottom'>About</Link>
+                </div>
             </div>
         }
     }
 })
 
 export { Package }
-
-
 
 function flatten(acc: any[], arr: any[]) {
     return acc.concat(arr);
